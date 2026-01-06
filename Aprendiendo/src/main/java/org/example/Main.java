@@ -26,6 +26,8 @@ public class Main {
                 agregarPaciente(scanner,pacientesPorNombre);
             } else if(opcion == 2){
                 buscarPaciente(scanner,pacientesPorNombre);
+            } else if(opcion == 3){
+                eliminarPaciente(scanner, pacientesPorNombre);
             }
             else if(opcion==5){
                 System.out.println("Saliendo del programa...");
@@ -71,9 +73,20 @@ public class Main {
         }
     }
 
-    public static void eliminarPaciente(){
+    public static void eliminarPaciente(Scanner scanner, Map<String, Paciente> pacientes){
         System.out.println("Ingrese el nombre del paciente a eliminar");
-        
+        String nombre = scanner.nextLine();
+        String nombreNormalizado = normalizarNombre(nombre);
+
+        Paciente pacienteAEliminar = pacientes.get(nombreNormalizado);
+
+        if (pacienteAEliminar == null){
+            System.out.println("Paciente no encontrado.");
+            return;
+        } else {
+            pacientes.remove(nombreNormalizado);
+            System.out.println("Paciente eliminado exitosamente.");
+        }
     }
 
     public static String normalizarNombre(String nombre){
